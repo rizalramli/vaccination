@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VaccineType;
+use App\Models\Vaccinator;
 use Illuminate\Http\Request;
 use DataTables;
 
-class VaccineTypeController extends Controller
+class VaccinatorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class VaccineTypeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = VaccineType::latest()->get();
+            $data = Vaccinator::latest()->get();
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
@@ -27,7 +27,7 @@ class VaccineTypeController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-        return view('vaccine-type.index');
+        return view('vaccinator.index');
     }
 
     /**
@@ -48,23 +48,23 @@ class VaccineTypeController extends Controller
      */
     public function store(Request $request)
     {
-        VaccineType::updateOrCreate([
+        Vaccinator::updateOrCreate([
             'id' => $request->id
         ],
         [
             'name' => $request->name,
         ]);        
 
-        return response()->json(['success'=>'Jenis Vaksin berhasil disimpan.']);
+        return response()->json(['success'=>'Vaksinator berhasil disimpan.']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Vaccinator  $vaccinator
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Vaccinator $vaccinator)
     {
         //
     }
@@ -72,12 +72,12 @@ class VaccineTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Vaccinator  $vaccinator
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $vaccineTypes = VaccineType::find($id);
+        $vaccineTypes = Vaccinator::find($id);
         return response()->json($vaccineTypes);
     }
 
@@ -85,10 +85,10 @@ class VaccineTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Vaccinator  $vaccinator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Vaccinator $vaccinator)
     {
         //
     }
@@ -96,15 +96,15 @@ class VaccineTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Vaccinator  $vaccinator
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $vaccine = VaccineType::find($id);
+        $vaccine = Vaccinator::find($id);
         if($vaccine){
             $vaccine->delete();
         }
-        return response()->json(['success'=>'Jenis vaksin berhasil dihapus.']);
+        return response()->json(['success'=>'Vaksinator berhasil dihapus.']);
     }
 }

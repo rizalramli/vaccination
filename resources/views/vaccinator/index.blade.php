@@ -6,11 +6,11 @@
         <nav aria-label="breadcrumb" class="d-none d-lg-block">
             <ol class="breadcrumb breadcrumb-style2 mg-b-10">
                 <li class="breadcrumb-item"><a href="../dashboard">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Jenis Vaksin</li>
+                <li class="breadcrumb-item active" aria-current="page">Vaksinator</li>
             </ol>
         </nav>
         <h4 class="mg-b-0 tx-montserrat tx-medium text-truncate">
-            Jenis Vaksin
+            Vaksinator
         </h4>
     </div>
     <div class="d-lg-none mg-t-10">
@@ -71,7 +71,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content tx-14 bg-white">
             <div class="modal-body">
-                <h5 class="tx-montserrat tx-medium">Apakah Anda yakin ingin menghapus jenis vaksin ini?</h5>
+                <h5 class="tx-montserrat tx-medium">Apakah Anda yakin ingin menghapus vaksinator ini?</h5>
                 <span>Tindakan ini tidak dapat dibatalkan.</span>
             </div>
             <div class="modal-footer bd-t-0">
@@ -84,6 +84,6 @@
     </div>
 </div>
 
-@include('vaccine-type.script')
+@include('vaccinator.script')
 
 @endsection
