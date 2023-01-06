@@ -6,5 +6,5 @@
     <li class="nav-label mg-t-15">Data</li>
     <li class="nav-item"><a href="../admin/pegawai.html" class="nav-link"><i data-feather="user"></i> <span>Pegawai</span></a></li>
     <li class="nav-item"><a href="../admin/vaksinator.html" class="nav-link"><i data-feather="users"></i> <span>Vaksinator</span></a></li>
-    <li class="nav-item"><a href="../admin/jenis-vaksin.html" class="nav-link"><i data-feather="copy"></i> <span>Jenis Vaksin</span></a></li>
+    <li class="nav-item"><a href="{{ route('vaccine-type.index') }}" class="nav-link{{ (request()->is('vaccine-type')) ? 'active' : '' }}"><i data-feather="copy"></i> <span>Jenis Vaksin</span></a></li>
 </ul>

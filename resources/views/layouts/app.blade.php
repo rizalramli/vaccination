@@ -99,12 +99,9 @@
 
       <div class="content-body ht-100p pd-t-80">
         <div class="container pd-x-0" id="content">
-
-          <div class="row row-xs">
-
+          
             @yield('content')
 
-          </div><!-- row -->
         </div><!-- container -->
       </div>
     </div>

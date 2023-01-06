@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::resource('vaccine-type', 'App\Http\Controllers\VaccineTypeController');

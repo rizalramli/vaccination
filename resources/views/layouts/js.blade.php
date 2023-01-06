@@ -83,3 +83,10 @@
 
     });
 </script>
+
+<!-- Datatable -->
+
+<script src="{{ asset('template/lib/select2/js/select2.min.js') }}"></script>
+<script src="{{ asset('template/lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+
+@yield('script')
