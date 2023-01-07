@@ -65,6 +65,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nik' => 'required',
+            'name' => 'required',
+            'gender' => 'required',
+            'birth_date' => 'required',
+            'nip' => 'required',
+            'blood_type' => 'required',
+            'phone' => 'required',
+            'is_active' => 'required',
+        ]);
+
         $user = User::updateOrCreate([
             'id' => $request->user_id
         ],

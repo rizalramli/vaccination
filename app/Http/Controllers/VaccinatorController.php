@@ -48,6 +48,10 @@ class VaccinatorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
+        
         Vaccinator::updateOrCreate([
             'id' => $request->id
         ],
@@ -77,8 +81,8 @@ class VaccinatorController extends Controller
      */
     public function edit($id)
     {
-        $vaccineTypes = Vaccinator::find($id);
-        return response()->json($vaccineTypes);
+        $vaccinator = Vaccinator::find($id);
+        return response()->json($vaccinator);
     }
 
     /**
@@ -101,9 +105,9 @@ class VaccinatorController extends Controller
      */
     public function destroy($id)
     {
-        $vaccine = Vaccinator::find($id);
-        if($vaccine){
-            $vaccine->delete();
+        $vaccinator = Vaccinator::find($id);
+        if($vaccinator){
+            $vaccinator->delete();
         }
         return response()->json(['success'=>'Vaksinator berhasil dihapus.']);
     }

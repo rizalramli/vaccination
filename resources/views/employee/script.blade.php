@@ -128,9 +128,16 @@
                         icon: 'success',
                     });
                 },
-                error: function(data) {
-                    console.log('Error:', data);
+                error: function(request, msg, error) {
                     $('#saveBtn').html('Simpan');
+                    var data = request.responseJSON;
+                    $.each(data.errors, function(key, value) {
+                        swal.fire({
+                            title: 'Gagal!',
+                            text: value,
+                            icon: 'error',
+                        });
+                    });
                 }
             });
         });
