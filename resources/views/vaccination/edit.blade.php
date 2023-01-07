@@ -28,7 +28,7 @@
             <div class="card-body">
                 <h5 class="tx-montserrat tx-medium">Calon Peserta</h5>
                 <p class="tx-color-03 tx-13">Pilih siapa saja yang dapat mengikuti vaksinasi ini.</p>
-                <button type="button" class="btn btn-its tx-montserrat tx-semibold" data-toggle="modal" data-target="#tambahpanitia" data-animation="effect-scale"><i data-feather="plus" class="wd-10 mg-r-5 tx-color-its2"></i> Tambah Daftar Peserta</button>
+                <button type="button" class="btn btn-its tx-montserrat tx-semibold" data-toggle="modal" data-target="#modalParticipant" data-animation="effect-scale"><i data-feather="plus" class="wd-10 mg-r-5 tx-color-its2"></i> Tambah Daftar Peserta</button>
             </div>
         </div>
     </div>
@@ -59,33 +59,42 @@
 
 </div><!-- row -->
 
-<div class="modal fade effect-scale" id="tambahpanitia" tabindex="-1" role="dialog" aria-labelledby="modalmyfile" aria-hidden="true">
+<div class="modal fade effect-scale" id="modalParticipant" tabindex="-1" role="dialog" aria-labelledby="modalmyfile" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="tx-montserrat tx-medium" id="tambahpanitiaLabel">Tambah Daftar Peserta Vaksinasi</h5>
+                <h5 class="tx-montserrat tx-medium" id="modalParticipantLabel">Tambah Daftar Peserta Vaksinasi</h5>
             </div>
-            <form>
-                <div class="modal-body pd-0 table-responsive">
-                    <table id="dataTable2" class="table table-borderless mg-0">
-                        <thead>
-                            <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
-                                <th class="wd-30p th-its" style="border-bottom: none !important"><span class="mg-r-15">NIP/NPP</span></th>
-                                <th class="wd-70p th-its" style="border-bottom: none !important"><span class="mg-r-15">Nama</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white tx-montserrat tx-semibold" data-dismiss="modal">Batalkan</button>
-                    <button type="submit" class="btn btn-its tx-montserrat tx-semibold mg-l-5">Simpan</button>
-                </div>
-            </form>
+            <div class="modal-body pd-0 table-responsive">
+                <table id="dataTable2" class="table table-borderless mg-0">
+                    <thead>
+                        <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
+                            <th class="wd-30p th-its" style="border-bottom: none !important"><span class="mg-r-15">NIP/NPP</span></th>
+                            <th class="wd-70p th-its" style="border-bottom: none !important"><span class="mg-r-15">Nama</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($employee as $item)
+                    <tr>
+                        <td class="td-its tx-medium align-middle border-bottom">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input employee_id" id="user1" name="employee_id[]" value="{{$item->id}}">
+                            <label class="custom-control-label" for="user1">{{$item->nik}}</label>
+                        </div>
+                        </td>
+                        <td class="td-its tx-medium align-middle border-bottom">{{$item->name}}</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white tx-montserrat tx-semibold" data-dismiss="modal">Batalkan</button>
+                <button type="button" class="btn btn-its tx-montserrat tx-semibold mg-l-5" id="addParticipant">Simpan</button>
+            </div>
         </div>
     </div>
 </div>

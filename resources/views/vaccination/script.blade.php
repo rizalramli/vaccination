@@ -68,20 +68,7 @@
                     previous: "<i class='fas fa-angle-left'></i>",
                     next: "<i class='fas fa-angle-right'></i>"
                 },
-            },
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('vaccination.loadEmployee') }}",
-            columns: [{
-                    data: 'nip',
-                    name: 'nip',
-                    className: 'td-its align-middle border-bottom'
-                },{
-                    data: 'name',
-                    name: 'name',
-                    className: 'td-its align-middle border-bottom'
-                }
-            ],
+            }
         });
 
         $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
@@ -112,9 +99,49 @@
                     }
                 });
             });
+        });
 
-
-            });
+        $(document).on('click', '#addParticipant', function() {
+            var data = $('.employee_id:checked').map((_, el) => el.value).get();
+            if(data.length == 0){
+                swal.fire({
+                    title: 'Gagal!',
+                    text: 'Tidak ada data yang dipilih',
+                    icon: 'error',
+                });
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('vaccination.store') }}",
+                    data : {
+                        '_token': '{{ csrf_token() }}',
+                        'employee_id': data,
+                        'schedule_id': {{ $schedule_id }}
+                    },
+                    success: function(data) {
+                        $('#modalParticipant').modal('hide');
+                        $('.employee_id').prop('checked', false);
+                        table.draw();
+                        swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Data berhasil ditambahkan',
+                            icon: 'success',
+                        });
+                    },
+                    error: function(data) {
+                        $('#modalParticipant').modal('hide');
+                        $('.employee_id').prop('checked', false);
+                        table.draw();
+                        swal.fire({
+                            title: 'Gagal!',
+                            text: 'Kuota sudah penuh',
+                            icon: 'error',
+                        });
+                    }
+                });
+            }
+        });
+        
 
     });
 </script>
