@@ -25,7 +25,23 @@ class EmployeeController extends Controller
                            $btn = $btn.' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-white btn-icon delete"><i data-feather="trash" class="wd-10"></i></a>';
                             return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->editColumn('name', function($row) {
+                        $html = '<a href="'.route('employee.show',$row->id).'">
+                        <p class="mg-b-0 tx-medium tx-color-its3">'.$row->name.'</p>
+                        <p class="mg-b-0 tx-13 tx-color-03">'.$row->nik.'</p>
+                        </a>';
+                        return $html;
+                    })
+                    ->editColumn('gender', function($row) {
+                        return $row->gender == 0 ? 'Laki-laki' : 'Perempuan';
+                    })
+                    ->editColumn('birth_date', function($row) {
+                        return date('d/m/Y', strtotime($row->birth_date));
+                    })
+                    ->editColumn('is_active', function($row) {
+                        return $row->is_active == 0 ? 'Tidak Aktif' : 'Aktif';
+                    })
+                    ->rawColumns(['name','action'])
                     ->make(true);
         }
         return view('employee.index');
@@ -80,9 +96,10 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('employee.show', compact('employee'));
     }
 
     /**

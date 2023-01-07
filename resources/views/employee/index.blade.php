@@ -47,7 +47,7 @@
 </div><!-- row -->
 
 <div class="modal fade effect-scale" id="ajaxModel" tabindex="-1" role="dialog" aria-labelledby="modalmyfile" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -58,39 +58,70 @@
             <form id="form" name="form">
                 @csrf
                 <div class="modal-body pd-t-0">
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">NIK</label>
-                        <input type="hidden" name="id" id="id">
-                        <input type="hidden" name="user_id" id="user_id">
-                        <input type="text" id="nik" name="nik" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">NIK</label>
+                                <input type="hidden" name="id" id="id">
+                                <input type="hidden" name="user_id" id="user_id">
+                                <input type="text" id="nik" name="nik" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Nama</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Nama</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Jenis Kelamin</label>
+                                <select id="gender" name="gender" class="form-control" required>
+                                    <option value="0">Laki-laki</option>
+                                    <option value="1">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Tanggal Lahir</label>
+                                <input type="date" id="birth_date" name="birth_date" class="form-control" value="1998-11-12" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Jenis Kelamin</label>
-                        <input type="text" id="gender" name="gender" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">NIP/NPP</label>
+                                <input type="text" id="nip" name="nip" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Golongan Darah</label>
+                                <input type="text" id="blood_type" name="blood_type" class="form-control" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Tanggal Lahir</label>
-                        <input type="text" id="birth_date" name="birth_date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">NIP/NPP</label>
-                        <input type="text" id="nip" name="nip" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Golongan Darah</label>
-                        <input type="text" id="blood_type" name="blood_type" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Nomor HP</label>
-                        <input type="text" id="phone" name="phone" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Status</label>
-                        <input type="text" id="is_active" name="is_active" class="form-control" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Nomor HP</label>
+                                <input type="text" id="phone" name="phone" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Status</label>
+                                <select id="is_active" name="is_active" class="form-control" required>
+                                    <option value="0">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
