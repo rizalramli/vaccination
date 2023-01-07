@@ -50,6 +50,9 @@ class VaccinatorController extends Controller
     {
         $request->validate([
             'name' => 'required',
+        ],
+        [
+            'name.required' => 'Nama harus diisi',
         ]);
         
         Vaccinator::updateOrCreate([

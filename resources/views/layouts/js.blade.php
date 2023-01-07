@@ -89,4 +89,65 @@
 <script src="{{ asset('template/lib/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('template/lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 
+<script>
+      // Adding placeholder for search input
+      (function($) {
+
+        'use strict'
+
+        var Defaults = $.fn.select2.amd.require('select2/defaults');
+
+        $.extend(Defaults.defaults, {
+          searchInputPlaceholder: ''
+        });
+
+        var SearchDropdown = $.fn.select2.amd.require('select2/dropdown/search');
+
+        var _renderSearchDropdown = SearchDropdown.prototype.render;
+
+        SearchDropdown.prototype.render = function(decorated) {
+
+          // invoke parent method
+          var $rendered = _renderSearchDropdown.apply(this, Array.prototype.slice.apply(arguments));
+
+          this.$search.attr('placeholder', this.options.get('searchInputPlaceholder'));
+
+          return $rendered;
+        };
+
+      })(window.jQuery);
+
+
+      $(function(){
+        'use strict'
+
+        // Basic with search
+        $('.select2').select2({
+          placeholder: 'Pilih',
+          searchInputPlaceholder: 'Cari'
+        });
+
+        // Disable search
+        $('.select2-no-search').select2({
+          minimumResultsForSearch: Infinity,
+          placeholder: 'Choose one'
+        });
+
+        // Clearable selection
+        $('.select2-clear').select2({
+          minimumResultsForSearch: Infinity,
+          placeholder: 'Choose one',
+          allowClear: true
+        });
+
+        // Limit selection
+        $('.select2-limit').select2({
+          minimumResultsForSearch: Infinity,
+          placeholder: 'Choose one',
+          maximumSelectionLength: 2
+        });
+
+      });
+</script>
+
 @yield('script')

@@ -74,6 +74,16 @@ class EmployeeController extends Controller
             'blood_type' => 'required',
             'phone' => 'required',
             'is_active' => 'required',
+        ],
+        [
+            'nik.required' => 'NIK harus diisi',
+            'name.required' => 'Nama harus diisi',
+            'gender.required' => 'Jenis kelamin harus diisi',
+            'birth_date.required' => 'Tanggal lahir harus diisi',
+            'nip.required' => 'NIP/NPP harus diisi',
+            'blood_type.required' => 'Golongan darah harus diisi',
+            'phone.required' => 'Nomor HP harus diisi',
+            'is_active.required' => 'Status harus diisi',
         ]);
 
         $user = User::updateOrCreate([

@@ -21,6 +21,8 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
+
 Route::resource('employee', 'App\Http\Controllers\EmployeeController');
 Route::resource('vaccinator', 'App\Http\Controllers\VaccinatorController');
 Route::resource('vaccine-type', 'App\Http\Controllers\VaccineTypeController');
