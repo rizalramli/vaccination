@@ -23,4 +23,19 @@ class Schedule extends Model
     ];
 
     protected $table = 'schedule';
+
+    public function vaccinator()
+    {
+        return $this->belongsTo(Vaccinator::class);
+    }
+
+    public function vaccineType()
+    {
+        return $this->belongsTo(VaccineType::class);
+    }
+
+    public function participants()
+    {
+        return $this->hasMany(Vaccination::class);
+    }
 }

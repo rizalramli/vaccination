@@ -92,12 +92,9 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        $schedule = Schedule::
-        select('schedule.*', 'vaccinator.name as vaccinator_name', 'vaccine_type.name as vaccine_type_name')
-        ->join('vaccinator', 'schedule.vaccinator_id', '=', 'vaccinator.id')
-        ->join('vaccine_type', 'schedule.vaccine_type_id', '=', 'vaccine_type.id')
-        ->find($id);
-        return view('schedule.show', compact('schedule'));
+        $schedule = Schedule::find($id);
+        $countParticipant = $schedule->participants()->count();
+        return view('schedule.show', compact('schedule', 'countParticipant'));
     }
 
     /**

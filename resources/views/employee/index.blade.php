@@ -27,13 +27,13 @@
                 <table id="dataTable" class="table table-borderless mg-0" width="100%">
                     <thead>
                         <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Pegawai</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Jenis Kelamin</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Tgl Lahir</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">NIP/NPP</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Golongan Darah</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Nomor Hp</span></th>
-                            <th class="wd-80p th-its" style="border-bottom: none !important"><span class="mg-r-15">Status</span></th>
+                            <th class="wd-25p th-its" style="border-bottom: none !important"><span>Pegawai</span></th>
+                            <th class="wd-5p th-its" style="border-bottom: none !important"><span>Jenis Kelamin</span></th>
+                            <th class="wd-5p th-its" style="border-bottom: none !important"><span>Tgl Lahir</span></th>
+                            <th class="wd-10p th-its" style="border-bottom: none !important"><span>NIP/NPP</span></th>
+                            <th class="wd-10p th-its" style="border-bottom: none !important"><span>Golongan Darah</span></th>
+                            <th class="wd-15p th-its" style="border-bottom: none !important"><span>Nomor HP</span></th>
+                            <th class="wd-10p th-its" style="border-bottom: none !important"><span>Status</span></th>
                             <th class="wd-20p th-its" style="border-bottom: none !important"><span class="mg-r-15">Aksi</span></th>
                         </tr>
                     </thead>

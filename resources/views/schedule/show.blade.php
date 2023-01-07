@@ -72,11 +72,11 @@
                 <p class="tx-medium tx-15">Tentang Vaksinasi Ini</p>
                 <div class="card-list-text">
                     <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Vaksinator</span>
-                    <p class="mg-b-0">{{$schedule->vaccinator_name}}</p>
+                    <p class="mg-b-0">{{$schedule->vaccinator->name}}</p>
                 </div>
                 <div class="card-list-text">
                     <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Jenis Vaksin</span>
-                    <p class="mg-b-0">{{$schedule->vaccine_type_name}}</p>
+                    <p class="mg-b-0">{{$schedule->vaccineType->name}}</p>
                 </div>
                 <div class="card-list-text">
                     <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Pendaftaran</span>
@@ -116,14 +116,13 @@
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-lg-2 d-flex align-items-center justify-content-end">
-                        <a href="vaksinasi-peserta.html" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="edit" class="wd-10 mg-r-5"></i> Edit Peserta</a>
-                        <a href="vaksinasi-peserta.html" class="btn btn-white btn-icon tx-montserrat tx-medium float-right d-lg-none"><i data-feather="edit"></i></a>
+                        <a href="{{route('vaccination.edit',$schedule->id)}}" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="edit" class="wd-10 mg-r-5"></i> Edit Peserta</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Peserta yang sudah dipilih</span>
-                <p class="mg-b-0">300 orang</p>
+                <p class="mg-b-0">{{$countParticipant}} orang</p>
             </div>
         </div>
     </div>
