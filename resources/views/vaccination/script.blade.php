@@ -161,8 +161,20 @@
             },
             processing: true,
             serverSide: true,
-            ajax: "{{ route('vaccination.index') }}",
+            ajax: {
+                url: "{{ route('vaccination.index') }}",
+                data: function (d) {
+                    d.employee_id = $('#employee_id').val()
+                }
+            },
             columns: [{
+                    data: 'action',
+                    name: 'action',
+                    className: 'td-its align-middle border-bottom',
+                    orderable: false,
+                    searchable: false
+                },
+                {
                     data: 'employee_id',
                     name: 'employee_id',
                     className: 'td-its align-middle border-bottom'
@@ -196,8 +208,11 @@
                     data: 'schedule.organizer',
                     name: 'schedule.organizer',
                     className: 'td-its align-middle border-bottom'
-                },
+                }
             ],
+            drawCallback: function() {
+                feather.replace()
+            }
         });
 
         $(document).on('click', '.btnPresenceTrue', function() {
@@ -264,6 +279,59 @@
                 }
             });
         });
+
+        $('#employee_id').change(function(){
+            table3.draw();
+        });
+
+        // Detail KIPI
+        @if(isset($vaccination_id))
+        let table4 = $('#dataTable4').DataTable({
+            language: {
+                searchPlaceholder: 'Cari',
+                sSearch: '',
+                lengthMenu: '_MENU_ data/halaman',
+                emptyTable:         'Tidak ada data yang tersedia pada tabel ini',
+                zeroRecords:        'Tidak ditemukan data yang sesuai',
+                info:               'Menampilkan _START_ sampai _END_ dari _TOTAL_ entri',
+                infoEmpty:          'Menampilkan 0 sampai 0 dari 0 entri',
+                infoFiltered:       '(disaring dari _MAX_ entri keseluruhan)',
+                paginate: {
+                    first: "<i class='fas fa-angle-double-left'></i>",
+                    last: "<i class='fas fa-angle-double-right'></i>",
+                    previous: "<i class='fas fa-angle-left'></i>",
+                    next: "<i class='fas fa-angle-right'></i>"
+                },
+            },
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('vaccination.show',$vaccination_id) }}",
+            columns: [{
+                    data: 'incident_date',
+                    name: 'incident_date',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'indication',
+                    name: 'indication',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'is_contact_doctor',
+                    name: 'is_contact_doctor',
+                    className: 'td-its align-middle border-bottom'
+                }
+            ],
+            drawCallback: function() {
+                feather.replace()
+            }
+        });
+        @endif
 
         $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
     });

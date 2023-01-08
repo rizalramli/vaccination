@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Kipi;
 use App\Models\Schedule;
 use App\Models\Vaccination;
 use Carbon\Carbon;
@@ -18,8 +19,9 @@ class VaccinationController extends Controller
      */
     public function index(Request $request)
     {
+        $employee = Employee::pluck('name', 'id')->prepend('Pilih Karyawan', '');
         if($request->ajax()){
-            $data = Vaccination::with('employee','schedule.vaccinator')->latest()->get();
+            $data = Vaccination::with('employee','schedule.vaccinator')->latest();
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->editColumn('employee_id', function($row){
@@ -49,10 +51,20 @@ class VaccinationController extends Controller
                             return date('d/m/Y',strtotime($row->next_vaccination_date));
                         }
                     })
-                    ->rawColumns(['employee_id','is_vaccinated','schedule_id'])
+                    ->filter(function ($instance) use ($request) {
+                        if (!empty($request->get('employee_id'))) {
+                            $instance->where('employee_id', $request->get('employee_id'));
+                        }
+                    })
+                    ->addColumn('action', function($row){
+                        $btn = '
+                        <a href="'.route('vaccination.show',$row->id).'" class="btn btn-white btn-icon btnView" data-id="'.$row->id.'" type="button" data-toggle="tooltip" data-placement="bottom" title="Lihat"><i class="fas fa-eye"></i></a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['employee_id','is_vaccinated','schedule_id','action'])
                     ->make(true);
         }
-        return view('vaccination.index');
+        return view('vaccination.index',compact('employee'));
     }
 
     /**
@@ -117,9 +129,27 @@ class VaccinationController extends Controller
      * @param  \App\Models\Vaccination  $vaccination
      * @return \Illuminate\Http\Response
      */
-    public function show(Vaccination $vaccination)
+    public function show($id,Request $request)
     {
-        //
+        $vaccination_id = $id;
+        $vaccination = Vaccination::with(['employee','schedule.vaccinator','schedule.vaccineType'])->find($id);
+        if($request->ajax()){
+            $data = Kipi::where('vaccination_id',$vaccination_id)->latest()->get();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->editColumn('incident_date',function($row){
+                        return date('d M Y',strtotime($row->incident_date));
+                    })
+                    ->editColumn('is_contact_doctor',function($row){
+                        if($row->is_contact_doctor === 1){
+                            return 'Sudah';
+                        } else {
+                            return 'Belum';
+                        }
+                    })
+                    ->make(true);
+        }
+        return view('vaccination.show',compact('vaccination_id','vaccination'));
     }
 
     /**

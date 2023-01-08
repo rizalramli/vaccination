@@ -16,7 +16,7 @@
     <div>
         <nav aria-label="breadcrumb" class="d-none d-lg-block">
             <ol class="breadcrumb breadcrumb-style2 mg-b-10">
-                <li class="breadcrumb-item"><a href="../dashboard">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{route('schedule.index')}}">Jadwal Vaksinasi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail Vaksinasi</li>
             </ol>
@@ -116,7 +116,9 @@
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-lg-2 d-flex align-items-center justify-content-end">
+                        @if($status != 'Pendaftaran ditutup')
                         <a href="{{route('vaccination.edit',$schedule->id)}}" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="edit" class="wd-10 mg-r-5"></i> Edit Peserta</a>
+                        @endif
                     </div>
                 </div>
             </div>

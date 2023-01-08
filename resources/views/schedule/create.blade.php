@@ -6,7 +6,7 @@
     <div>
         <nav aria-label="breadcrumb" class="d-none d-lg-block">
             <ol class="breadcrumb breadcrumb-style2 mg-b-10">
-                <li class="breadcrumb-item"><a href="../dashboard">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{route('schedule.index')}}">Vaksinasi Tersedia</a></li>
                 <li class="breadcrumb-item active" aria-current="page">
                 @if(isset($schedule))
