@@ -48,14 +48,6 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
-
-    //script sementara untuk beralih role
-    var goBtn = document.getElementById("goBtn");
-    var menu = document.getElementById("menu");
-
-    goBtn.onclick = function() {
-        window.location = menu.value;
-    }
 </script>
 
 <script>

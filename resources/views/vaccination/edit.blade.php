@@ -81,8 +81,8 @@
                     <tr>
                         <td class="td-its tx-medium align-middle border-bottom">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input employee_id" id="user1" name="employee_id[]" value="{{$item->id}}">
-                            <label class="custom-control-label" for="user1">{{$item->nik}}</label>
+                            <input name="employee_id[]" type="checkbox" class="custom-control-input employee_id" id="customCheck{{$item->id}}" value="{{$item->id}}">
+                            <label class="custom-control-label" for="customCheck{{$item->id}}">{{$item->nip}}</label>
                         </div>
                         </td>
                         <td class="td-its tx-medium align-middle border-bottom">{{$item->name}}</td>
