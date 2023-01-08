@@ -17,11 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('history', 'App\Http\Controllers\HistoryController');
+Route::resource('kipi', 'App\Http\Controllers\KipiController');
+
 Route::get('/home', function () {
     return view('home');
 })->name('home');
-
-Route::resource('kipi', 'App\Http\Controllers\KipiController');
 
 Route::post('vaccination/presence', 'App\Http\Controllers\VaccinationController@presence')->name('vaccination.presence');
 Route::resource('vaccination', 'App\Http\Controllers\VaccinationController');

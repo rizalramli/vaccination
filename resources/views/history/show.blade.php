@@ -20,7 +20,7 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
         <nav aria-label="breadcrumb" class="d-none d-lg-block">
             <ol class="breadcrumb breadcrumb-style2 mg-b-10">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{route('vaccination.index')}}">Laporan</a></li>
+                <li class="breadcrumb-item"><a href="{{route('history.index')}}">Riwayat</a></li>
                 <li class="breadcrumb-item active" aria-current="page">KIPI</li>
             </ol>
         </nav>
@@ -31,7 +31,7 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
     <div class="d-lg-none mg-t-10">
     </div>
     <div>
-        <a href="{{route('vaccination.index')}}" class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
+        <a href="{{route('history.index')}}" class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
     </div>
 </div>
 
@@ -59,10 +59,6 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
             </div>
             <div class="card-body card-list">
                 <p class="tx-medium tx-15">Tentang Vaksinasi Ini</p>
-                <div class="card-list-text">
-                    <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Nama Karyawan</span>
-                    <p class="mg-b-0">{{$vaccination->employee->name}} ({{$vaccination->employee->nik}})</p>
-                </div>
                 <div class="card-list-text">
                     <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Vaksinator</span>
                     <p class="mg-b-0">{{$vaccination->schedule->vaccinator->name}}</p>
@@ -112,18 +108,20 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-lg-2 d-flex align-items-center justify-content-end">
+                        <a id="createBtn" href="javascript:void(0)" data-toggle="modal" data-animation="effect-scale" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="plus" class="wd-10 mg-r-5"></i> Tambah</a>
                     </div>
                 </div>
             </div>
             <div class="card-body pd-0">
                 <div class="table-responsive">
-                    <table id="dataTable4" class="table table-borderless table-hover" width="100%">
+                    <table id="dataTable" class="table table-borderless table-hover" width="100%">
                         <thead>
                             <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
-                                <th class="wd-20p th-its">Tanggal Kejadian</th>
+                                <th class="wd-15p th-its">Tanggal Kejadian</th>
                                 <th class="wd-40p th-its">Gejala</th>
                                 <th class="wd-25p th-its">Tindakan</th>
                                 <th class="wd-15p th-its">Hubungi Dokter</th>
+                                <th class="wd-5p th-its tx-color-03"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -136,6 +134,75 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
 
 </div><!-- row -->
 
-@include('vaccination.script')
+<!-- Modal -->
+
+<div class="modal fade effect-scale" id="ajaxModel" tabindex="-1" role="dialog" aria-labelledby="modalmyfile" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="tx-montserrat tx-medium" id="ajaxModelLabel">Tambah KIPI</h5>
+          </div>
+          <form id="form" name="form">
+            @csrf
+            <div class="modal-body pd-t-0">
+              <div class="form-group">
+                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold" for="tgl">Tanggal kejadian</label> 
+                <input type="hidden" name="vaccination_id" value="{{$vaccination->id}}">
+                <input type="date" id="tgl" name="incident_date" class="form-control " placeholder="" value="" required>
+              </div>
+              <div class="form-group">
+                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold" for="tgl">Gejala</label> 
+                <textarea name="indication" class="form-control" rows="2" placeholder="" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold" for="tgl">Tindakan</label> 
+                <textarea name="action" class="form-control" rows="2" placeholder="" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="d-block tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold" for="tgl">Sudah menghubungi dokter?</label> 
+                <div class="row">
+                  <div class="col-6">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="vaksin_sudah" value="1" name="is_contact_doctor" class="custom-control-input" required>
+                      <label class="custom-control-label" for="vaksin_sudah">Sudah</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="vaksin_belum" value="0" name="is_contact_doctor" class="custom-control-input">
+                      <label class="custom-control-label" for="vaksin_belum">Belum</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-white tx-montserrat tx-semibold" data-dismiss="modal">Batalkan</button>
+              <button id="saveBtn" type="button" class="btn btn-its tx-montserrat tx-semibold">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade effect-scale" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="hapuskipi" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content tx-14 bg-white">
+          <div class="modal-body">
+            <h5 class="tx-montserrat tx-medium">Hapus KIPI?</h5>
+            <span>Tindakan ini tidak dapat dibatalkan.</span>
+          </div>
+          <div class="modal-footer bd-t-0">
+            <a href="#" data-toggle="modal" data-animation="effect-scale" class="btn btn-white tx-montserrat tx-semibold" data-dismiss="modal">Batal</a>
+            <button id="deleteBtn" type="button" class="btn btn-its tx-montserrat tx-semibold">Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+@include('history.script')
 
 @endsection

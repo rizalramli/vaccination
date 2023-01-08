@@ -35,7 +35,28 @@ class KipiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'incident_date' => 'required',
+            'indication' => 'required',
+            'action' => 'required',
+            'is_contact_doctor' => 'required',
+        ],
+        [
+            'incident_date.required' => 'Tanggal kejadian harus diisi',
+            'indication.required' => 'Gejala harus diisi',
+            'action.required' => 'Tindakan harus diisi',
+            'is_contact_doctor.required' => 'Sudah menghubungi dokter harus diisi',
+        ]);
+        
+        $kipi = new Kipi();
+        $kipi->vaccination_id = $request->vaccination_id;
+        $kipi->incident_date = $request->incident_date;
+        $kipi->indication = $request->indication;
+        $kipi->action = $request->action;
+        $kipi->is_contact_doctor = $request->is_contact_doctor;
+        $kipi->save();
+
+        return response()->json(['success'=>'Kipi berhasil disimpan.']);
     }
 
     /**
@@ -78,8 +99,12 @@ class KipiController extends Controller
      * @param  \App\Models\Kipi  $kipi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kipi $kipi)
+    public function destroy($id)
     {
-        //
+        $data = Kipi::find($id);
+        if($data){
+            $data->delete();
+        }
+        return response()->json(['success'=>'kipi berhasil dihapus.']);
     }
 }
