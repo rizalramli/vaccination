@@ -14,8 +14,12 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::truncate();
-        
+        $check_admin = \App\Models\User::where('email', 'admin')->first();
+
+        if($check_admin) {
+            $check_admin->delete();
+        }
+
         $admin = \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin',

@@ -6,8 +6,9 @@
 $now = date('Y-m-d H:i:s');
 $implementation_date_start = date('Y-m-d H:i:s',strtotime($vaccination->schedule->implementation_date.' '.$vaccination->schedule->implementation_time_start));
 $implementation_date_end = date('Y-m-d H:i:s',strtotime($vaccination->schedule->implementation_date.' '.$vaccination->schedule->implementation_time_end));
-
-if($now < $implementation_date_start && $vaccination->is_vaccinated == 0){
+if($vaccination->is_vaccinated === 0 || $vaccination->is_vaccinated === 1){
+    $status = 'Selesai';
+} else if($now < $implementation_date_start && $vaccination->is_vaccinated == 0){
     $status = 'Menunggu vaksinasi';
 } else {
     $status = 'Selesai';

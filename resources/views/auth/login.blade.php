@@ -34,6 +34,9 @@
               <div><strong>Admin</strong></div>
               <div>Username: admin</div>
               <div>Password: admin123</div>
+              <div><strong>Karyawan</strong></div>
+              <div>Username: memakai NIP/NPP</div>
+              <div>Password: cek di detail pegawai</div>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

@@ -14,8 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        \Spatie\Permission\Models\Role::truncate();
-        \Spatie\Permission\Models\Role::create(['name' => 'admin']);
-        \Spatie\Permission\Models\Role::create(['name' => 'employee']);
+        $roles = [
+            'admin',
+            'employee',
+        ];
+
+        foreach ($roles as $role) {
+            \Spatie\Permission\Models\Role::updateOrCreate(['name' => $role]);
+        }
     }
 }
