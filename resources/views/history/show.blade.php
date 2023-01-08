@@ -7,7 +7,7 @@ $now = date('Y-m-d H:i:s');
 $implementation_date_start = date('Y-m-d H:i:s',strtotime($vaccination->schedule->implementation_date.' '.$vaccination->schedule->implementation_time_start));
 $implementation_date_end = date('Y-m-d H:i:s',strtotime($vaccination->schedule->implementation_date.' '.$vaccination->schedule->implementation_time_end));
 
-if($now > $implementation_date_start && $now < $implementation_date_end){
+if($now < $implementation_date_start && $vaccination->is_vaccinated == 0){
     $status = 'Menunggu vaksinasi';
 } else {
     $status = 'Selesai';
@@ -96,6 +96,7 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
             </div>
         </div>
     </div>
+    @if($vaccination->is_vaccinated == 1 || $status == 'Selesai')
     <div class="col-sm-12 col-lg-12 mg-b-10">
         <div class="card">
             <div class="card-header">
@@ -131,6 +132,7 @@ if($now > $implementation_date_start && $now < $implementation_date_end){
             </div>
         </div>
     </div>
+    @endif
 
 </div><!-- row -->
 

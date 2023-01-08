@@ -24,26 +24,22 @@
     <div class="col-sm-12 col-lg-12">
         <div class="card">
             <div class="card-body card-list">
-                @foreach($vaccination as $item)
+                @if(count($vaccination) == 0)
+                <h5 class="text-center">Belum ada riwayat</h5>
+                @else
+                @foreach($vaccination as $key => $item)
                 @php 
                     $now = date('Y-m-d H:i:s');
                     $implementation_date_start = date('Y-m-d H:i:s',strtotime($item->schedule->implementation_date.' '.$item->schedule->implementation_time_start));
                     $implementation_date_end = date('Y-m-d H:i:s',strtotime($item->schedule->implementation_date.' '.$item->schedule->implementation_time_end));
-
-                    if($now > $implementation_date_start && $now < $implementation_date_end){
+                    if($now < $implementation_date_start && $item->is_vaccinated == 0){
                         $status = 'Menunggu vaksinasi';
                     } else {
                         $status = 'Selesai';
                     }
                 @endphp
                 <div class="card-list-item">
-                    @if($item->is_vaccinated == 1)
                     <a href="{{ route('history.show',$item->id) }}">
-                    @elseif($status == 'Selesai')
-                    <a href="{{ route('history.show',$item->id) }}">
-                    @else 
-                    <a href="{{ route('history.index') }}">
-                    @endif
                         <div class="d-flex justify-content-between align-items-center sc-link">
                             <div class="media">
                                 <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">{{$loop->iteration}}</span></div>
@@ -66,6 +62,7 @@
                     </a>
                 </div>
                 @endforeach
+                @endif
             </div>
         </div>
     </div>

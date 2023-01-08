@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::resource('history', 'App\Http\Controllers\HistoryController');
 Route::resource('kipi', 'App\Http\Controllers\KipiController');
+Route::resource('employee-vaccination', 'App\Http\Controllers\EmployeeVaccinationController');
 
 Route::get('/home', function () {
     return view('home');
