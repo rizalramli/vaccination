@@ -10,6 +10,7 @@
             }
         });
 
+        @if(isset($schedule_id))
         let table = $('#dataTable').DataTable({
             language: {
                 searchPlaceholder: 'Cari',
@@ -51,27 +52,6 @@
                 feather.replace()
             }
         });
-
-        let table2 = $('#dataTable2').DataTable({
-            language: {
-                searchPlaceholder: 'Cari',
-                sSearch: '',
-                lengthMenu: '_MENU_ data/halaman',
-                emptyTable:         'Tidak ada data yang tersedia pada tabel ini',
-                zeroRecords:        'Tidak ditemukan data yang sesuai',
-                info:               'Menampilkan _START_ sampai _END_ dari _TOTAL_ entri',
-                infoEmpty:          'Menampilkan 0 sampai 0 dari 0 entri',
-                infoFiltered:       '(disaring dari _MAX_ entri keseluruhan)',
-                paginate: {
-                    first: "<i class='fas fa-angle-double-left'></i>",
-                    last: "<i class='fas fa-angle-double-right'></i>",
-                    previous: "<i class='fas fa-angle-left'></i>",
-                    next: "<i class='fas fa-angle-right'></i>"
-                },
-            }
-        });
-
-        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
 
         $('body').on('click', '.delete', function() {
 
@@ -141,8 +121,151 @@
                 });
             }
         });
-        
+        @endif
 
+        let table2 = $('#dataTable2').DataTable({
+            language: {
+                searchPlaceholder: 'Cari',
+                sSearch: '',
+                lengthMenu: '_MENU_ data/halaman',
+                emptyTable:         'Tidak ada data yang tersedia pada tabel ini',
+                zeroRecords:        'Tidak ditemukan data yang sesuai',
+                info:               'Menampilkan _START_ sampai _END_ dari _TOTAL_ entri',
+                infoEmpty:          'Menampilkan 0 sampai 0 dari 0 entri',
+                infoFiltered:       '(disaring dari _MAX_ entri keseluruhan)',
+                paginate: {
+                    first: "<i class='fas fa-angle-double-left'></i>",
+                    last: "<i class='fas fa-angle-double-right'></i>",
+                    previous: "<i class='fas fa-angle-left'></i>",
+                    next: "<i class='fas fa-angle-right'></i>"
+                },
+            }
+        });
+
+        let table3 = $('#dataTable3').DataTable({
+            language: {
+                searchPlaceholder: 'Cari',
+                sSearch: '',
+                lengthMenu: '_MENU_ data/halaman',
+                emptyTable:         'Tidak ada data yang tersedia pada tabel ini',
+                zeroRecords:        'Tidak ditemukan data yang sesuai',
+                info:               'Menampilkan _START_ sampai _END_ dari _TOTAL_ entri',
+                infoEmpty:          'Menampilkan 0 sampai 0 dari 0 entri',
+                infoFiltered:       '(disaring dari _MAX_ entri keseluruhan)',
+                paginate: {
+                    first: "<i class='fas fa-angle-double-left'></i>",
+                    last: "<i class='fas fa-angle-double-right'></i>",
+                    previous: "<i class='fas fa-angle-left'></i>",
+                    next: "<i class='fas fa-angle-right'></i>"
+                },
+            },
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('vaccination.index') }}",
+            columns: [{
+                    data: 'employee_id',
+                    name: 'employee_id',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'is_vaccinated',
+                    name: 'is_vaccinated',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'vaccination_number',
+                    name: 'vaccination_number',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'schedule_id',
+                    name: 'schedule_id',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'next_vaccination_date',
+                    name: 'next_vaccination_date',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'schedule.vaccinator.name',
+                    name: 'schedule.vaccinator.name',
+                    className: 'td-its align-middle border-bottom'
+                },
+                {
+                    data: 'schedule.organizer',
+                    name: 'schedule.organizer',
+                    className: 'td-its align-middle border-bottom'
+                },
+            ],
+        });
+
+        $(document).on('click', '.btnPresenceTrue', function() {
+            var id = $(this).data("id");
+            Swal.fire({
+                title: 'Pilih tanggal vaksinasi selanjutnya',
+                html: `<label>Tanggal</label><input type="date" id="date" class="form-control" placeholder="tanggal vaksinasi selanjutnya">`,
+                confirmButtonText: 'Simpan',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const date = Swal.getPopup().querySelector('#date').value
+                    if (!date) {
+                        Swal.showValidationMessage(`Silahkan isi tanggal`)
+                    }
+                    return { date: date}
+                }
+            }).then((result) => {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('vaccination.presence') }}",
+                    data : {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id,
+                        'is_vaccinated': 1,
+                        'next_vaccination_date': result.value.date
+                    },
+                    success: function(data) {
+                        table3.draw();
+                        swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Status kehadiran berhasil diubah',
+                            icon: 'success',
+                        });
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
+            })
+        });
+
+        $(document).on('click', '.btnPresenceFalse', function() {
+            var id = $(this).data("id");
+            $.ajax({
+                type: "POST",
+                url: "{{ route('vaccination.presence') }}",
+                data : {
+                    '_token': '{{ csrf_token() }}',
+                    'id': id,
+                    'is_vaccinated': 0
+                },
+                success: function(data) {
+                    table3.draw();
+                    swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Status kehadiran berhasil diubah',
+                        icon: 'success',
+                    });
+                },
+                error: function(data) {
+                    console.log('Error:', data);
+                }
+            });
+        });
+
+        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
     });
 </script>
 @endsection

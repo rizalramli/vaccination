@@ -24,4 +24,9 @@ class Vaccination extends Model
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
+
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id');
+    }
 }

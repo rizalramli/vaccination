@@ -21,6 +21,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::post('vaccination/presence', 'App\Http\Controllers\VaccinationController@presence')->name('vaccination.presence');
 Route::resource('vaccination', 'App\Http\Controllers\VaccinationController');
 Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
 
