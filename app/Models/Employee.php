@@ -18,6 +18,7 @@ class Employee extends Model
         'nip',
         'blood_type',
         'phone',
+        'password',
         'is_active'
     ];
 

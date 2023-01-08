@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Schedule;
 use App\Models\Vaccination;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class EmployeeVaccinationController extends Controller
      */
     public function store(Request $request)
     {
-        $employee_id = 6;
+        $user_id = auth()->user()->id;
+        $employee_id = Employee::where('user_id',$user_id)->first()->id;
         $schedule_id = $request->schedule_id;
         $check_vaccination_number = Vaccination::where('employee_id',$employee_id)->where('is_vaccinated',1)->count();
         Vaccination::updateOrCreate(
@@ -63,7 +65,8 @@ class EmployeeVaccinationController extends Controller
      */
     public function show($id)
     {
-        $employee_id = 6;
+        $user_id = auth()->user()->id;
+        $employee_id = Employee::where('user_id',$user_id)->first()->id;
         $schedule_id = $id;
         $schedule = Schedule::find($id);
         $quota = $schedule->quota - $schedule->participants->count();

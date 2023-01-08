@@ -86,13 +86,19 @@ class EmployeeController extends Controller
             'is_active.required' => 'Status harus diisi',
         ]);
 
+        $random_password = \Str::random(8);
+
         $user = User::updateOrCreate([
             'id' => $request->user_id
         ],
         [
             'name' => $request->name,
-            'password' => bcrypt('12345678'),
+            'email' => $request->nip,
+            'password' => bcrypt($random_password),
         ]);
+
+        $user->assignRole('employee');
+
         Employee::updateOrCreate([
             'id' => $request->id
         ],
@@ -105,6 +111,7 @@ class EmployeeController extends Controller
             'nip' => $request->nip,
             'blood_type' => $request->blood_type,
             'phone' => $request->phone,
+            'password' => $random_password,
             'is_active' => $request->is_active,
         ]);
 

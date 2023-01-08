@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
 });
 
 Route::resource('history', 'App\Http\Controllers\HistoryController');
@@ -32,3 +32,7 @@ Route::resource('schedule', 'App\Http\Controllers\ScheduleController');
 Route::resource('employee', 'App\Http\Controllers\EmployeeController');
 Route::resource('vaccinator', 'App\Http\Controllers\VaccinatorController');
 Route::resource('vaccine-type', 'App\Http\Controllers\VaccineTypeController');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

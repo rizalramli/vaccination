@@ -67,6 +67,10 @@
                     <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Status</span>
                     <p class="mg-b-0">{{$employee->is_active == 0 ? 'Tidak Aktif' : 'Aktif'}}</p>
                 </div>
+                <div class="card-list-text">
+                    <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Password</span>
+                    <p class="mg-b-0">{{$employee->password}}</p>
+                </div>
 
             </div>
         </div>

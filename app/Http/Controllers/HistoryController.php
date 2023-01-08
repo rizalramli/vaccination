@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Kipi;
 use App\Models\Vaccination;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $employee_id = 6;
+        $user_id = auth()->user()->id;
+        $employee_id = Employee::where('user_id',$user_id)->first()->id;
         $vaccination = Vaccination::with('schedule')->where('employee_id', $employee_id)->orderBy('id', 'asc')->get();
         return view('history.index', compact('vaccination'));
     }
